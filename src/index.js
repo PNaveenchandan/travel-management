@@ -1,5 +1,7 @@
+const { request } = require("express");
 const express = require("express");
 const knex = require("knex");
+const uuid = require("uuid");
 
 const db = knex({
   client: "mysql",
@@ -50,6 +52,38 @@ app.get("/users", async (request, response) => {
   }
 });
 
+//return back uuid of created user
+app.post("/user", async (request, response) => {
+  try {
+    const ID = uuid.v4();
+    const user = await db("USERS").insert({"ID":ID,...request.body});
+    response.send("user created successfully! and uuid is "+ID);
+  } catch (e) {
+    console.error(e);
+    response.status(500).send("failed to create user!");
+  }
+});
+
+app.delete("/user/:email", async (request, response) => {
+  try {
+   await db("USERS").delete().where("email",request.params.email);
+    response.send("user deleted successfully! in url parameter");
+  } catch (e) {
+    console.error(e);
+    response.status(500).send("failed to delete user!");
+  }
+});
+
+app.delete("/user", async (request, response) => {
+  try {
+   await db("USERS").delete().where("email",request.query.email);
+    response.send("user deleted successfully! in query");
+  } catch (e) {
+    console.error(e);
+    response.status(500).send("failed to delete user!");
+  }
+});
+
 app.post("/login", async (request, response) => {
   try {
     console.log();
@@ -58,7 +92,7 @@ app.post("/login", async (request, response) => {
       return response.status(404).send("user not found with this email id!");
     }
 
-    if (userArray[0].PASSWORD !== request.body.password) {
+    if (userArray[0].PASS !== request.body.password) {
       return response.status(500).send("user password doesn't match");
     }
     response.send("login successfull!!");
