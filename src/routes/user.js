@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require("../db-connection/connection")
+const uuid = require("uuid");
 
 const userRoute = new express.Router();
 
@@ -17,12 +18,12 @@ userRoute.get("/users", async (request, response) => {
   //return back uuid of created user
   userRoute.post("/user", async (request, response) => {
     try {
-      const ID = uuid.v4();
+      const generatedID = uuid.v4();
       if(!request.body.ADDRESS){
         throw new Error("address can't be empty")
       }
-      const user = await db("USERS").insert({"ID":ID,...request.body});
-      response.send("user created successfully! and uuid is "+ID);
+      const user = await db("USERS").insert({"ID":generatedID,...request.body});
+      response.send("user created successfully! and uuid is "+generatedID);
     } catch (e) {
       console.error(e);
       response.status(500).send("failed to create user!"+e);
@@ -51,7 +52,6 @@ userRoute.get("/users", async (request, response) => {
   
   userRoute.post("/login", async (request, response) => {
     try {
-      console.log();
       const userArray = await db("USERS").where("email", request.body.email);
       if (userArray.length === 0) {
         return response.status(404).send("user not found with this email id!");
@@ -63,7 +63,7 @@ userRoute.get("/users", async (request, response) => {
       response.send("login successfull!!");
     } catch (e) {
       console.error(e);
-      response.status(500).send("users does not exist from email id");
+      response.status(500).send("fail to authenticate user");
     }
   });
 
