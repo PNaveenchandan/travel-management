@@ -8,6 +8,7 @@ const userRoute = require("./routes/user")
 const healthRoute = require("./routes/health")
 const transportRoutes = require("./routes/transport-routes");
 const transportRoute = require("./routes/transport-routes");
+const priceRoute = require("./routes/price");
 
 
 const app = new express();
@@ -18,7 +19,7 @@ app.use(placeRoute);
 app.use(userRoute);
 app.use(healthRoute);
 app.use(transportRoute)
-
+app.use(priceRoute)
 app.listen(3032, () => {
   console.log("application started");
 });
