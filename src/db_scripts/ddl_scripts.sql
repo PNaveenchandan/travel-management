@@ -43,7 +43,7 @@ PRICE_PER_KM decimal (4,2)
 ID int primary key auto_increment,
 TOTAL_AMOUNT decimal(4,2) not null,
 TRAVEL_DATE DATE NOT NULL,
-BOOKED_DATE  DATETIME,
+BOOKED_DATE  DATETIME default current_timestamp,
 ROUTE_ID INT not null, 
 USER_ID varchar(60),
 FOREIGN KEY(ROUTE_ID) REFERENCES ROUTES(ID),
