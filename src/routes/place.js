@@ -8,7 +8,7 @@ const placeRoute = new express.Router();
 placeRoute.get("/places", async (request, response) => {
     try {
       const result = await db("PLACE");
-      console.log(result);
+      //console.log(result);
       response.send(result);
     } catch (e) {
       console.error(e);
