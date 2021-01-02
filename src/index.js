@@ -40,13 +40,19 @@ app.get("/login",(request,response)=>{
 })
 
 app.get("/home",(request,response)=>{
-  // response.render("index",{
+  // response.render("home",{
   //   title: "Travel Management",
   //   name: "Jay",
   // });
   response.send("login successfull !!!");
 })
 
+app.get("/about",(request,response)=>{
+  response.render("about",{
+    title: "Travel Management",
+    name: "Jay",
+  });
+})
 
 app.listen(3032, () => {
   console.log("application started");
