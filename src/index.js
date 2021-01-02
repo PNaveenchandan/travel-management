@@ -32,12 +32,21 @@ app.use(transportRoute);
 app.use(priceRoute);
 app.use(bookingRoute)
 
-app.get("/home",(request,response)=>{
-  response.render("index",{
+app.get("/login",(request,response)=>{
+  response.render("login",{
     title: "Travel Management",
     name: "Jay",
   });
 })
+
+app.get("/home",(request,response)=>{
+  // response.render("index",{
+  //   title: "Travel Management",
+  //   name: "Jay",
+  // });
+  response.send("login successfull !!!");
+})
+
 
 app.listen(3032, () => {
   console.log("application started");
