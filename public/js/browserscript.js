@@ -9,14 +9,17 @@ const messageOne = document.querySelector('#message-1');
 const messageTwo = document.querySelector('#message-2');
 
 
-loginForm.addEventListener('submit',(event)=>{
+loginForm.addEventListener('submit',async (event)=>{
     console.log(event)
     event.preventDefault();
     const emailValue = emailField.value;
     const passwordValue = passwordField.value;
 
     const userDetailsJson = { email : emailValue, password: passwordValue};
-    fetch('/login',{
+
+    try{
+
+     fetch('/validateuser',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -24,15 +27,14 @@ loginForm.addEventListener('submit',(event)=>{
           body: JSON.stringify(userDetailsJson)
     }).then((response)=>{
         response.json().then((data)=>{
-            console.log(data)
-            if(data.error){
-                console.log(data.error)
-                messageOne.textContent = data.error;
+            if(data.status === 500){
+                messageOne.textContent = data.msg;
             }else{
-                console.log('valid user found with provided credentials')
-                messageOne.textContent = data.NAME+data.ADDRESS;
+                window.location.replace("/home");
             }
         })
     });
-})
-
+}catch(error){
+    messageOne.textContent = "Username or password is wrong !!"
+}
+});

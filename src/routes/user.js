@@ -50,21 +50,19 @@ userRoute.get("/users", async (request, response) => {
     }
   });
   
-  userRoute.post("/login", async (request, response) => {
+  userRoute.post("/validateuser", async (request, response) => {
     try {
-      console.log(request.body);
       const userArray = await db("USERS").where("email", request.body.email);
       if (userArray.length === 0) {
-        return response.status(404).send("user not found with this email id!");
-      }
-  
-      if (userArray[0].PASS !== request.body.password) {
-        return response.status(500).send("user password doesn't match");
-      }
+        response.send(JSON.stringify({"status":500,"msg":"user not found with this email id!"}));
+      }else if (userArray[0].PASS !== request.body.password) {
+        response.send(JSON.stringify({"status":500,"msg":"user password doesn't match"}));
+      }else {
       response.send(userArray[0]);
+      }
     } catch (e) {
       console.error(e);
-      response.status(500).send("fail to authenticate user");
+      response.send({"status":500,"msg":JSON.stringify("fail to authenticate user")});
     }
   });
 
