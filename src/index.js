@@ -40,11 +40,10 @@ app.get("/login",(request,response)=>{
 })
 
 app.get("/home",(request,response)=>{
-  // response.render("home",{
-  //   title: "Travel Management",
-  //   name: "Jay",
-  // });
-  response.send("login successfull !!!");
+  response.render("home",{
+    title: "Travel Management",
+    name: "Jay",
+  });
 })
 
 app.get("/about",(request,response)=>{
