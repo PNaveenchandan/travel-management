@@ -14,4 +14,5 @@ transportRoute.get("/transport-routes",async(request, response)=>{
       response.status(500).send("failed to fetch from transport-routes table!");
     }
 });
+
 module.exports =transportRoute;
