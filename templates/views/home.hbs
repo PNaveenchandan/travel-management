@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Application</title>
-    <script src="/js/browserscript.js" defer></script>
+    <script src="/js/homeScreenScript.js" defer></script>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -13,13 +13,9 @@
     <div>
         {{>header}}
         <p>Search your Route</p>
-        <form>
             <input id="FromPlaceID" placeholder="From Place" type="text">
             <input id="ToPlaceID" placeholder="To Place" type="text">
-            <button>Search</button>
-        </form>
-        <p id="message-1"></p>
-        <p id="message-2"></p>
+            <button id="search">Search</button>
     </div>
 
 
