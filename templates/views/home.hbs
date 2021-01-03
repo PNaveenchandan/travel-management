@@ -4,30 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Management</title>
+    <title>Weather Application</title>
     <script src="/js/browserscript.js" defer></script>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
     <div>
-        <img class="portrait" src="/img/jay.jpg">
         {{>header}}
-        <p>Book your travel</p>
+        <p>Search your Route</p>
         <form>
-            <input id="emailID" placeholder="Email" type="text">
-            </br>
-            <input id="passwordID" placeholder="Password" type="password">
-            </br>
-            <button>Login</button>
+            <input id="FromPlaceID" placeholder="From Place" type="text">
+            <input id="ToPlaceID" placeholder="To Place" type="text">
+            <button>Search</button>
         </form>
         <p id="message-1"></p>
         <p id="message-2"></p>
     </div>
 
- {{!-- <div class="main-content">
-        <img class="portrait" src="/img/jay.jpg">
-    </div> --}}
+
 
     {{>footer}}
 </body>
