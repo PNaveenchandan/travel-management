@@ -1,61 +1,151 @@
+const userObj = window.localStorage.getItem('loggedInUser');
+//call booking history API 
+//iterate and form table of history ordered by booking date
+const user = JSON.parse(userObj);
+if(!user){
+    window.location.replace("/login");
+}
+
 const fromPlaceField = document.getElementById("FromPlaceID");
 const toPlaceField = document.getElementById("ToPlaceID");
-const button = document.getElementById("search");
+const dateField = document.getElementById("DateID");
+const search = document.getElementById("search");
+
 
 let placeNameIdMap = new Map();
 
-button.addEventListener("click",(event)=>{
-    if(fromPlaceField.value === "" || toPlaceField.value === ""){
-        alert("Select From and To Places")
-    }
-    const startPlaceId = placeNameIdMap.get(fromPlaceField.value);
-    const endPlaceId = placeNameIdMap.get(toPlaceField.value)
-   fetch("/transport-routes?start_place="+startPlaceId+"&dest_place="+endPlaceId).then((response)=>{
+search.addEventListener("click", (event) => {
+  if (fromPlaceField.value === "" || toPlaceField.value === "") {
+    alert("Select From and To Places");
+  }
+  const startPlaceId = placeNameIdMap.get(fromPlaceField.value);
+  const endPlaceId = placeNameIdMap.get(toPlaceField.value);
+  fetch(
+    "/transport-routes?start_place=" +
+      startPlaceId +
+      "&dest_place=" +
+      endPlaceId
+  ).then((response) => {
     response.json().then((routes) => {
-        console.log(routes)
-        //  document.createElement("TABLE");
-        // var table = document.getElementById("TABLE");
-        // const row = table.insertRow(0);
-        // const cell1 = row.insertCell(0);
-        // const cell2 = row.insertCell(1);
-        // cell1.innerHTML = "NAME"
-        // cell2.innerHTML = "PLACE"
-
-   })
-})
-}
-)
+      console.log(routes);
+      generate_table(routes);
+    });
+  });
+});
 
 fromPlaceField.addEventListener("keyup", (event) => {
   let arr = [];
   if (fromPlaceField.value !== "") {
-    autoCompletePlaces("FROM",fromPlaceField.value);
+    autoCompletePlaces("FROM", fromPlaceField.value);
   }
 });
 
 toPlaceField.addEventListener("keyup", (event) => {
   if (toPlaceField.value !== "") {
-    autoCompletePlaces("TO",toPlaceField.value);
+    autoCompletePlaces("TO", toPlaceField.value);
   }
 });
 
-async function autoCompletePlaces(field,prefix) {
+dateField.addEventListener("focus", (event)=>{
+    let myPicker = new SimplePicker();
+    myPicker.open(); 
+    myPicker.on('submit', function(date, readableDate){
+        dateField.value = moment(date).format('DD-MM-YYYY');
+        console.log(moment(date).format('DD-MM-YYYY'))
+      })
+});
+
+function generate_table(routes) {
+  // get the reference for the body
+  //var body = document.getElementsByTagName("body")[0];
+  var body = document.getElementById("searchresults");
+  // creates a <table> element and a <tbody> element
+  var tbl = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+
+  //create header of table
+  var headerRow = document.createElement("tr");
+  for (column of ["Route Id","Transport Type", "Distance in KM","Choose"]) {
+    // Create a <td> element and a text node, make the text
+    // node the contents of the <td>, and put the <td> at
+    // the end of the table row
+    var cell = document.createElement("th");
+    cell.style.backgroundColor = 'grey';
+    var cellText = document.createTextNode(column);
+    cell.appendChild(cellText);
+    headerRow.appendChild(cell);
+  }
+  tblBody.appendChild(headerRow);
+  // creating all cells
+  for (route of routes) {
+    // creates a table row
+    var row = document.createElement("tr");
+
+    for (column of [route.ID,route.TRANSPORT_TYPE, route.DIST_KM, "SELECT"]) {
+      // Create a <td> element and a text node, make the text
+      // node the contents of the <td>, and put the <td> at
+      // the end of the table row
+      var cell = document.createElement("td");
+     if (column === "SELECT") {
+        addSelectButton(row,cell);
+      } else {
+        var cellText = document.createTextNode(column);
+        cell.appendChild(cellText);
+      }
+      row.appendChild(cell);
+    }
+    // add the row to the end of the table body
+    tblBody.appendChild(row);
+  }
+
+  // put the <tbody> in the <table>
+  tbl.appendChild(tblBody);
+  // appends <table> into <body>
+  body.appendChild(tbl);
+  // sets the border attribute of tbl to 2;
+  tbl.setAttribute("border", "1");
+  tbl.setAttribute("width","100%");
+}
+
+function addSelectButton(row,td) {
+  var btn = document.createElement("input");
+  btn.type = "button";
+  btn.className = "btn";
+  btn.value = "Select";
+  btn.onclick = (function() {return function(row) {selectRoute(row);}})(row);
+  td.appendChild(btn);
+}
+
+async function selectRoute(row){
+    console.log(dateField.value);
+    console.log(row.target.parentNode.parentNode.firstChild)
+    const userObj = window.localStorage.getItem('loggedInUser');
+    if(!userObj){
+      window.location.replace("/login")
+    }else{
+      const userId = JSON.parse(userObj).ID;
+      window.location.replace("/bookingsummary?route="+row.target.parentNode.parentNode.firstChild.innerHTML+"&date="+dateField.value+"&userId="+userId);
+    }
+    
+}
+
+async function autoCompletePlaces(field, prefix) {
   let arr = [];
   let inp;
   await fetch("/places/filter?prefix=" + prefix).then((response) => {
     response.json().then((places) => {
       for (const place of places) {
         arr.push(place.NAME);
-        if(!placeNameIdMap.has(place.NAME)){
-            placeNameIdMap.set(place.NAME,place.ID);
+        if (!placeNameIdMap.has(place.NAME)) {
+          placeNameIdMap.set(place.NAME, place.ID);
         }
       }
     });
   });
-  if(field === "FROM"){
-      inp = fromPlaceField;
-  }else{
-      inp = toPlaceField;
+  if (field === "FROM") {
+    inp = fromPlaceField;
+  } else {
+    inp = toPlaceField;
   }
   autocomplete(inp, arr);
 }

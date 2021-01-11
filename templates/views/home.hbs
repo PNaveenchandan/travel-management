@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Application</title>
+    <title>Travel</title>
     <script src="/js/homeScreenScript.js" defer></script>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/simplepicker.css">
+    <script src="/js/simplepicker.js" defer></script>
+    <script src="/js/moment.js" defer></script>
 </head>
 
 <body>
-    <div>
-        {{>header}}
-        <p>Search your Route</p>
+    {{>header}}
+    <div id="searchfields">
+        <h2>Search your Route</h2>
             <input id="FromPlaceID" placeholder="From Place" type="text">
             <input id="ToPlaceID" placeholder="To Place" type="text">
+            <input id="DateID" placeholder="Select Date" type="text">
             <button id="search">Search</button>
     </div>
-
-
+    <div id="searchresults"></div>
 
     {{>footer}}
 </body>

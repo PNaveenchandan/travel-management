@@ -1,5 +1,5 @@
 
-CREATE TABLE USERS
+CREATE TABLE travel.USERS
 (
 ID varchar(60) primary key ,
 NAME varchar(50) not null CHECK (NAME != ""),
@@ -12,7 +12,14 @@ IS_VERIFIED boolean,
 unique(EMAIL)
 );
 
-CREATE TABLE ROUTES
+
+CREATE TABLE travel.PLACE
+(
+ID INT PRIMARY KEY auto_increment,
+NAME VARCHAR(50),
+STATE VARCHAR(50));
+
+CREATE TABLE travel.ROUTES
 (
     ID int primary key auto_increment,
     START_PLACE_ID int,
@@ -23,13 +30,7 @@ CREATE TABLE ROUTES
     FOREIGN KEY(DEST_PLACE_ID) REFERENCES PLACE(ID)
 );
 
-CREATE TABLE PLACE
-(
-ID INT PRIMARY KEY auto_increment,
-NAME VARCHAR(50),
-STATE VARCHAR(50));
-
-CREATE TABLE TRANSPORT_PRICE
+CREATE TABLE travel.TRANSPORT_PRICE
 (
 ID int primary key auto_increment,
 TRANSPORT_TYPE varchar (20),
@@ -38,14 +39,17 @@ PRICE_PER_KM decimal (4,2)
 
 
 
- CREATE TABLE BOOKINGS
+ CREATE TABLE travel.BOOKINGS
 (
 ID int primary key auto_increment,
-TOTAL_AMOUNT decimal(4,2) not null,
+TOTAL_AMOUNT decimal(8,2) not null,
 TRAVEL_DATE DATE NOT NULL,
 BOOKED_DATE  DATETIME default current_timestamp,
 ROUTE_ID INT not null, 
 USER_ID varchar(60),
+BOOK_STATUS varchar(50),
 FOREIGN KEY(ROUTE_ID) REFERENCES ROUTES(ID),
 FOREIGN KEY(USER_ID) REFERENCES USERS(ID)
  );
+
+ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'

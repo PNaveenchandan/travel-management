@@ -9,7 +9,12 @@ body {
     flex-direction: column;
     height: 100vh;
 }
-
+#container{
+    width:960px;
+    height:400px;
+    background:#ccc;
+    margin:0 auto;
+}
 .main-content {
     flex-grow: 1;
 }
@@ -55,3 +60,25 @@ button{
     color: white;
     padding: 8px;
 }
+
+td{
+    color:#333333
+}
+#searchfields{
+    width:650px;
+    height: auto;
+    margin:0 auto;
+}
+#searchresults{
+    width:650px;
+    height: auto;
+    margin:0 auto;
+    margin-top: 50px;
+}
+
+.logoutLblPos{
+
+    position:fixed;
+    right:10px;
+    top:5px;
+ }
