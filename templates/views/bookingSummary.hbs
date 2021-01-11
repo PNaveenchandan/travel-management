@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Application</title>
+    <script src="/js/bookingconfirm.js" defer></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div>
+        {{>header}}
+        <h2>Booking Summary</h2>
+        <table style="width:80%" border=1>
+             <tr>
+                <th>Ref ID</th>
+                <td>{{refID}}</td>
+            </tr>
+            <tr>
+                <th>From Place</th>
+                <td>{{from}}</td>
+            </tr>
+            <tr>
+                <th>To Place</th>
+                <td>{{to}}</td>
+            </tr>
+            <tr>
+                <th>Transport Type</th>
+                <td>{{transportType}}</td>
+            </tr>
+            <tr>
+                <th>Distance in KM</th>
+                <td>{{distance}}</td>
+            </tr>
+            <tr>
+                <th>Date Of Travel</th>
+                <td>{{date}}</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>{{amount}}</td>
+            </tr>
+        </table>
+        </br>
+        <button id="Cancel">Cancel</button>
+        <button id="Confirm">Confirm</button>
+    </div>
+
+
+
+    {{>footer}}
+</body>
+
+
+</html>

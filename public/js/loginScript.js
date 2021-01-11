@@ -8,6 +8,7 @@ const passwordField = document.getElementById('passwordID');
 const messageOne = document.querySelector('#message-1');
 const messageTwo = document.querySelector('#message-2');
 
+window.localStorage.clear();
 
 loginForm.addEventListener('submit',async (event)=>{
     console.log(event)
@@ -30,6 +31,8 @@ loginForm.addEventListener('submit',async (event)=>{
             if(data.status === 500){
                 messageOne.textContent = data.msg;
             }else{
+                window.localStorage.clear();
+                window.localStorage.setItem("loggedInUser",JSON.stringify({'ID':data.ID,'NAME':data.NAME,'EMAIL':data.EMAIL}))
                 window.location.replace("/home");
             }
         })

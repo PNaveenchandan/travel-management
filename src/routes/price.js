@@ -12,6 +12,10 @@ priceRoute.get("/price",async(request, response)=>{
       response.status(500).send("failed to fetcH from Price table!");
     }
 });
+
+priceRoute.get("/ratecard",(request,response)=>{
+  response.render("rateCard",{});
+})
   
   module.exports = priceRoute;
   
