@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking.com</title>
+      <link rel="stylesheet" href="/css/simplepicker.css">
+      <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/simplepicker.js" defer></script>
+    <script src="/js/moment.js" defer></script>
+    <script src="/js/signup.js" defer></script>
+</head>
+
+<form id"signupForm">
+  <h1>Sign up</h1><br/>
+
+  <span class="input"></span>
+  <input type="text" id="name" name="name" placeholder="Full name" autofocus autocomplete="off" required/>
+  <br>
+   <br>
+  <span class="input"></span>
+  <input type="email" id="email" name="email" placeholder="Email address" required />
+  <br>
+   <br>
+  <span class="input"></span>
+  <input type="tel" id="phone" name="phone"  pattern="[0-9]{10}" placeholder="Phone Number" required />
+  <br>
+   <br>
+  <span class="input"></span>
+  <input type="text" name="dob" id="dob" placeholder="Date of Birth" required />
+  <br>
+   <br>
+  <span id="passwordMeter"></span>
+  <input type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
+  <br />
+  <br />
+  <button id="submitbtn" type="submit" value="Sign Up" title="Submit form" class="icon-arrow-right"><span>Sign up</span></button>
+</form>
+</html>

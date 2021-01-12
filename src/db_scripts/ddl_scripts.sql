@@ -4,7 +4,7 @@ CREATE TABLE travel.USERS
 ID varchar(60) primary key ,
 NAME varchar(50) not null CHECK (NAME != ""),
 EMAIL varchar(50) not null CHECK (EMAIL != ""),
-PASS varchar(10) not null CHECK (PASS != ""),
+PASS varchar(100) not null CHECK (PASS != ""),
 DOB date not null,
 PHONE_NUM varchar(20),
 ADDRESS varchar(300),
@@ -47,7 +47,7 @@ TRAVEL_DATE DATE NOT NULL,
 BOOKED_DATE  DATETIME default current_timestamp,
 ROUTE_ID INT not null, 
 USER_ID varchar(60),
-BOOK_STATUS varchar(50),
+BOOKING_STATUS varchar(50),
 FOREIGN KEY(ROUTE_ID) REFERENCES ROUTES(ID),
 FOREIGN KEY(USER_ID) REFERENCES USERS(ID)
  );

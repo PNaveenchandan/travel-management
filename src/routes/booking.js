@@ -28,6 +28,16 @@ bookingRoute.get("/booking", async (request, response) => {
     }
   });
 
+  bookingRoute.patch("/booking", async (request, response) => {
+    try {
+      const updated = await db("BOOKINGS").update("BOOKING_STATUS","Confirmed").where("ID",request.query.bookId);
+      response.send("Booking updated successfully!");
+    } catch (e) {
+      console.error(e);
+      response.status(500).send("failed to update bookings!"+e);
+    }
+  });
+
   bookingRoute.get("/bookingsummary", async (request,response)=>{
     const routes = await db("ROUTES").where("ID",request.query.route);
     await getBookingSummary(routes,request).then(async (summary)=>{
@@ -51,7 +61,7 @@ bookingRoute.get("/booking", async (request, response) => {
       'ROUTE_ID': summary.routeId,
       'BOOKING_STATUS': 'Awaiting Confirmation',
       'USER_ID':summary.bookedBy,
-      'TRAVEL_DATE':moment(summary.date,"DD-MM-YYYY").format('YYYY-MM-DD'),
+      'TRAVEL_DATE':moment(summary.date,"DD-MMM-YYYY").format('YYYY-MM-DD'),
       'TOTAL_AMOUNT':summary.amount
     }
     return tableObj;

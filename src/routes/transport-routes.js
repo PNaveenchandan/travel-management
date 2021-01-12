@@ -15,4 +15,26 @@ transportRoute.get("/transport-routes",async(request, response)=>{
     }
 });
 
+
+transportRoute.get("/route/:routeId",async(request, response)=>{
+    const routes = await db("ROUTES").where("ID",request.params.routeId);
+    const route = routes[0];
+    const places = await db("PLACE").whereIn("ID",[route.START_PLACE_ID,route.DEST_PLACE_ID]);
+    let startPlace,endPlace = "";
+    for(place of places){
+      if(place.ID === route.START_PLACE_ID){
+        startPlace = place.NAME;
+      }else{
+        endPlace = place.NAME;
+      }
+    }
+    response.render("route",{
+      "routeId":route.ID,
+      "from":startPlace,
+      "to":endPlace,
+      "transportType":route.TRANSPORT_TYPE,
+      "distance":route.DIST_KM
+    });
+});
+
 module.exports =transportRoute;

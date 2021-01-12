@@ -1,9 +1,9 @@
 
 //const request = require('postman-request');
 
-const loginForm = document.querySelector('form');
-const emailField = document.getElementById('emailID');
-const passwordField = document.getElementById('passwordID');
+const loginForm = document.getElementById('loginform');
+const emailField = document.getElementById('username');
+const passwordField = document.getElementById('password');
 
 const messageOne = document.querySelector('#message-1');
 const messageTwo = document.querySelector('#message-2');

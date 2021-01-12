@@ -50,7 +50,7 @@ dateField.addEventListener("focus", (event)=>{
     let myPicker = new SimplePicker();
     myPicker.open(); 
     myPicker.on('submit', function(date, readableDate){
-        dateField.value = moment(date).format('DD-MM-YYYY');
+        dateField.value = moment(date).format('DD-MMM-YYYY');
         console.log(moment(date).format('DD-MM-YYYY'))
       })
 });
