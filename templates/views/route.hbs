@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking.com</title>
+    <script src="/js/moment.js" defer></script>
+    <script src="/js/routeInformation.js" defer></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+        {{>header}}
+        <h2>Route Information</h2>
+<table style="width:80%" border=1>
+             <tr>
+                <th>Route ID</th>
+                <td>{{routeId}}</td>
+            </tr>
+            <tr>
+                <th>Start Place</th>
+                <td>{{from}}</td>
+            </tr>
+            <tr>
+                <th>End Place</th>
+                <td>{{to}}</td>
+            </tr>
+            <tr>
+                <th>Transport Type</th>
+                <td>{{transportType}}</td>
+            </tr>
+            <tr>
+                <th>Distance in KM</th>
+                <td>{{distance}}</td>
+            </tr>
+        </table>
+    {{>footer}}
+</body>
+
+
+</html>

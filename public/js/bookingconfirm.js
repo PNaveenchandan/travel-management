@@ -7,5 +7,15 @@ Cancel.addEventListener("click", (event) =>{
 
 Confirm.addEventListener("click", (event) =>{
     //update booking status
+    const bookingRefId = document.getElementById('summaryTable').rows[0].cells[1].innerHTML;
+    console.log(bookingRefId);
+
+        fetch('/booking?bookId='+bookingRefId,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+              }
+        }).then((response)=>{});
+
     window.location.replace("/bookinghistory");
 });

@@ -23,7 +23,7 @@ userRoute.get("/users", async (request, response) => {
         throw new Error("address can't be empty")
       }
       const user = await db("USERS").insert({"ID":generatedID,...request.body});
-      response.send("user created successfully! and uuid is "+generatedID);
+      response.send(generatedID);
     } catch (e) {
       console.error(e);
       response.status(500).send("failed to create user!"+e);
@@ -66,4 +66,7 @@ userRoute.get("/users", async (request, response) => {
     }
   });
 
+  userRoute.get("/signup", async (request, response) =>{
+    response.render("signup",{});
+  });
   module.exports = userRoute;

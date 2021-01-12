@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Management</title>
+    <script src="/js/loginScript.js" defer></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div>
+        {{!-- <img class="portrait" src="/img/jay.jpg"> --}}
+        {{>loginHeader}}
+        <form>
+            <input id="emailID" placeholder="Email" type="text">
+            </br>
+            <input id="passwordID" placeholder="Password" type="password">
+            </br>
+            <button>Login</button>
+        </form>
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+    </div>
+
+ {{!-- <div class="main-content">
+        <img class="portrait" src="/img/jay.jpg">
+    </div> --}}
+
+    {{>footer}}
+</body>
+
+
+</html>

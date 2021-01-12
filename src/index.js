@@ -1,12 +1,7 @@
-const { request } = require("express");
 const express = require("express");
-const knex = require("knex");
-const uuid = require("uuid");
 const placeRoute = require("./routes/place");
-const db = require("./db-connection/connection")
 const userRoute = require("./routes/user")
 const healthRoute = require("./routes/health")
-const transportRoutes = require("./routes/transport-routes");
 const transportRoute = require("./routes/transport-routes");
 const priceRoute = require("./routes/price");
 const bookingRoute = require("./routes/booking");
@@ -43,6 +38,16 @@ app.get("/home",(request,response)=>{
   response.render("home",{
     title: "Travel Management",
     name: "Jay",
+  });
+})
+
+app.get("/bookingsummary",(request,response)=>{
+  const routeId = request.query.route;
+  const bookingDate = request.query.date;
+  
+  response.render("bookingSummary",{
+    title: routeId,
+    name: bookingDate,
   });
 })
 
