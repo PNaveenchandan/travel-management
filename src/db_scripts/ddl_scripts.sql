@@ -4,7 +4,7 @@ CREATE TABLE travel.USERS
 ID varchar(60) primary key ,
 NAME varchar(50) not null CHECK (NAME != ""),
 EMAIL varchar(50) not null CHECK (EMAIL != ""),
-PASS varchar(100) not null CHECK (PASS != ""),
+PASS varchar(250) not null CHECK (PASS != ""),
 DOB date not null,
 PHONE_NUM varchar(20),
 ADDRESS varchar(300),
